@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор строительства - Мари-Арт</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles1.css">
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="imagesc.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для фона */
+        .maric-bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        /* ВСТАВЬТЕ СВОЕ ИЗОБРАЖЕНИЕ ФОНА ЗДЕСЬ */
+        .maric-bg-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-image: url('images/bbbuild.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .maric-bg-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(8, 55, 61, 0.85);
+        }
+
+        /* Основные стили калькулятора */
+        .maric-calc-wrapper {
+            padding: 40px 20px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+        }
+        
+        .maric-calc-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .maric-calc-header {
+            background: linear-gradient(135deg, #08373d 0%, #106874 100%);
+            padding: 25px 30px;
+            color: white;
+            text-align: center; /* Центрируем заголовок */
+        }
+        
+        .maric-calc-title {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff; /* Изменил цвет на белый для лучшей читаемости */
+            padding: 0 10px; /* Добавил отступы по бокам */
+        }
+        
+        .maric-calc-subtitle {
+            margin: 10px 0 0;
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.9;
+            font-family: 'Montserrat', sans-serif;
+            color: #ddd;
+        }
+        
+        .maric-calc-body {
+            padding: 30px;
+        }
+        
+        /* Стили формы */
+        .maric-calc-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .maric-form-group {
+            margin-bottom: 20px; /* Увеличил отступ */
+        }
+        
+        .maric-form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        .maric-form-label {
+            display: block;
+            margin-bottom: 10px; /* Увеличил отступ */
+            font-weight: 600;
+            color: #08373d;
+            font-size: 16px; /* Увеличил размер шрифта */
+            font-family: 'Montserrat', sans-serif;
+            padding: 0 2px; /* Добавил небольшой отступ */
+        }
+        
+        .maric-form-input, 
+        .maric-form-select {
+            width: 100%;
+            padding: 14px 16px; /* Увеличил padding */
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Увеличил радиус */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px; /* Увеличил размер шрифта */
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+            box-sizing: border-box; /* Важно для правильного расчета ширины */
+        }
+        
+        .maric-form-select {
+            height: 50px; /* Фиксированная высота для select */
+            appearance: none; /* Убираем стандартный вид */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+        
+        .maric-form-input:focus, 
+        .maric-form-select:focus {
+            border-color: #f39c12;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+            background-color: white;
+        }
+        
+        .maric-form-button {
+            grid-column: span 2;
+            background: linear-gradient(to right, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-form-button:hover {
+            background: linear-gradient(to right, #e67e22, #d35400);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        /* Стили результатов */
+        .maric-results {
+            display: none;
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .maric-results-title {
+            margin-top: 0;
+            color: #08373d;
+            font-size: 22px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center; /* Центрируем заголовок результатов */
+        }
+        
+        .maric-results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; /* Увеличил промежуток */
+        }
+        
+        .maric-result-item {
+            margin-bottom: 15px;
+        }
+        
+        .maric-result-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            font-size: 15px; /* Увеличил размер */
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 5px;
+        }
+        
+        .maric-result-value {
+            font-weight: 700;
+            color: #08373d;
+            font-size: 17px; /* Увеличил размер */
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-result-total {
+            grid-column: span 2;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #ddd;
+            font-size: 20px;
+            text-align: center; /* Центрируем итоговую стоимость */
+        }
+        
+        .maric-result-total .maric-result-value {
+            color: #e67e22;
+            font-size: 24px;
+        }
+        
+        /* Стили формы контактов */
+        .maric-contact-form {
+            display: none;
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        /* Стили сохраненных расчетов */
+        .maric-saved-title {
+            margin: 40px 0 20px;
+            color: #08373d;
+            font-size: 22px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-saved-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .maric-saved-item {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid #f39c12;
+            transition: all 0.3s;
+        }
+        
+        .maric-saved-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .maric-saved-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .maric-saved-name {
+            font-weight: 700;
+            color: #08373d;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-saved-date {
+            color: #7f8c8d;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-saved-details {
+            color: #555;
+            font-size: 15px; /* Увеличил размер */
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.5;
+        }
+        
+        .maric-saved-total {
+            font-weight: 700;
+            color: #e67e22;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .maric-saved-delete {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 14px; /* Увеличил padding */
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+            float: right;
+        }
+        
+        .maric-saved-delete:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Адаптивные стили */
+        @media (max-width: 768px) {
+            .maric-calc-wrapper {
+                padding: 20px 15px;
+            }
+            
+            .maric-calc-header {
+                padding: 20px;
+            }
+            
+            .maric-calc-body {
+                padding: 20px;
+            }
+            
+            .maric-calc-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .maric-form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .maric-form-button {
+                grid-column: span 1;
+            }
+            
+            .maric-results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .maric-result-total {
+                grid-column: span 1;
+            }
+            
+            .maric-calc-title {
+                font-size: 24px;
+            }
+            
+            .maric-calc-subtitle {
+                font-size: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .maric-calc-title {
+                font-size: 22px;
+            }
+            
+            .maric-calc-subtitle {
+                font-size: 14px;
+            }
+            
+            .maric-form-input, 
+            .maric-form-select {
+                padding: 12px 14px;
+                font-size: 15px;
+            }
+            
+            .maric-form-button {
+                padding: 14px;
+                font-size: 15px;
+            }
+            
+            .maric-form-label {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ваш хедер (оставлен без изменений) -->
+    <header class="header-12">
+        <div class="container-12">
+            <div class="logo-12">
+                <img src="images/logo1.png" alt="Логотип компании" class="logo-image-14">
+                <span class="company-name">Строительная компания</span>
+                <span class="brand-name">Мари-Арт</span>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+            <ul class="nav-list-12" id="navList">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">Информация</a></li>
+                <li><a href="otsivi.html">Отзывы</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="calc.html">Калькулятор</a></li> 
+            </ul> 
+        </div>
+    </header>
+
+    <!-- Фоновое изображение -->
+    <div class="maric-bg-wrapper">
+        <!-- ВСТАВЬТЕ СВОЕ ИЗОБРАЖЕНИЕ ЗДЕСЬ -->
+        <div class="maric-bg-image"></div>
+        <div class="maric-bg-overlay"></div>
+    </div>
+
+    <!-- Основное содержимое калькулятора -->
+    <div class="maric-calc-wrapper">
+        <div class="maric-calc-container">
+            <div class="maric-calc-header">
+                <h1 class="maric-calc-title">Калькулятор строительства дома</h1>
+                <p class="maric-calc-subtitle">Рассчитайте точную стоимость вашего будущего дома</p>
+            </div>
+            
+            <div class="maric-calc-body">
+                <form id="constructionForm" class="maric-calc-form" onsubmit="return calculateCost(event)">
+                    <div class="maric-form-group full-width">
+                        <label for="area" class="maric-form-label">Площадь дома (кв. м)</label>
+                        <input type="number" id="area" class="maric-form-input" required min="20" max="1000" placeholder="Например: 120">
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="floors" class="maric-form-label">Количество этажей</label>
+                        <input type="number" id="floors" class="maric-form-input" required min="1" max="5" placeholder="От 1 до 5">
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="roofType" class="maric-form-label">Тип крыши</label>
+                        <select id="roofType" class="maric-form-select">
+                            <option value="flat">Плоская</option>
+                            <option value="gable">Скатная</option>
+                            <option value="hip">Шатровая</option>
+                            <option value="mansard">Мансардная</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="wallMaterial" class="maric-form-label">Материал стен</label>
+                        <select id="wallMaterial" class="maric-form-select">
+                            <option value="brick">Кирпич</option>
+                            <option value="wood">Дерево</option>
+                            <option value="concrete">Бетон</option>
+                            <option value="foam">Пеноблоки</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="foundationType" class="maric-form-label">Тип фундамента</label>
+                        <select id="foundationType" class="maric-form-select">
+                            <option value="strip">Ленточный</option>
+                            <option value="pile">Свайный</option>
+                            <option value="slab">Плита</option>
+                            <option value="column">Столбчатый</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="finishingMaterial" class="maric-form-label">Материал отделки</label>
+                        <select id="finishingMaterial" class="maric-form-select">
+                            <option value="plaster">Штукатурка</option>
+                            <option value="paint">Краска</option>
+                            <option value="tile">Плитка</option>
+                            <option value="woodPanel">Деревянные панели</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="maric-form-button">Рассчитать стоимость</button>
+                </form>
+
+                <div class="maric-results" id="result">
+                    <h3 class="maric-results-title">Результаты расчета</h3>
+                    <div class="maric-results-grid">
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Площадь дома:</span>
+                            <span class="maric-result-value" id="resultArea">0 кв.м</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Этажность:</span>
+                            <span class="maric-result-value" id="resultFloors">0</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Тип крыши:</span>
+                            <span class="maric-result-value" id="resultRoof">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Материал стен:</span>
+                            <span class="maric-result-value" id="resultWalls">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Фундамент:</span>
+                            <span class="maric-result-value" id="resultFoundation">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Отделка:</span>
+                            <span class="maric-result-value" id="resultFinishing">-</span>
+                        </div>
+                        <div class="maric-result-total">
+                            <span class="maric-result-label">Итоговая стоимость:</span>
+                            <span class="maric-result-value" id="resultTotal">0 руб.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="maric-contact-form" id="contactForm">
+                    <h3 class="maric-results-title">Сохранить расчет</h3>
+                    <div class="maric-calc-form">
+                        <div class="maric-form-group full-width">
+                            <label for="fullName" class="maric-form-label">ФИО</label>
+                            <input type="text" id="fullName" class="maric-form-input" required>
+                        </div>
+                        <div class="maric-form-group full-width">
+                            <label for="email" class="maric-form-label">Email</label>
+                            <input type="email" id="email" class="maric-form-input" required>
+                        </div>
+                        <button type="button" id="submitContact" class="maric-form-button" onclick="submitContact()">Сохранить расчет</button>
+                    </div>
+                </div>
+
+                <h2 class="maric-saved-title">Сохраненные расчеты</h2>
+                <ul class="maric-saved-list" id="savedCalculations"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция расчета стоимости
+        function calculateCost(event) {
+            event.preventDefault();
+            
+            // Получаем значения из формы
+            const area = parseInt(document.getElementById('area').value);
+            const floors = parseInt(document.getElementById('floors').value);
+            const roofType = document.getElementById('roofType').value;
+            const wallMaterial = document.getElementById('wallMaterial').value;
+            const foundationType = document.getElementById('foundationType').value;
+            const finishingMaterial = document.getElementById('finishingMaterial').value;
+            
+            // Коэффициенты стоимости
+            const baseCost = 30000; // Базовая стоимость за кв.м
+            const floorMultiplier = [0, 1, 1.8, 2.5, 3.1, 3.6]; // Множитель за этажность
+            
+            const roofCosts = {
+                flat: 1.0,
+                gable: 1.2,
+                hip: 1.4,
+                mansard: 1.8
+            };
+            
+            const wallCosts = {
+                brick: 1.5,
+                wood: 1.2,
+                concrete: 1.3,
+                foam: 1.0
+            };
+            
+            const foundationCosts = {
+                strip: 1.2,
+                pile: 1.0,
+                slab: 1.5,
+                column: 0.8
+            };
+            
+            const finishingCosts = {
+                plaster: 1.0,
+                paint: 0.8,
+                tile: 1.5,
+                woodPanel: 1.8
+            };
+            
+            // Перевод значений в читаемый вид
+            const roofNames = {
+                flat: "Плоская",
+                gable: "Скатная",
+                hip: "Шатровая",
+                mansard: "Мансардная"
+            };
+            
+            const wallNames = {
+                brick: "Кирпич",
+                wood: "Дерево",
+                concrete: "Бетон",
+                foam: "Пеноблоки"
+            };
+            
+            const foundationNames = {
+                strip: "Ленточный",
+                pile: "Свайный",
+                slab: "Плита",
+                column: "Столбчатый"
+            };
+            
+            const finishingNames = {
+                plaster: "Штукатурка",
+                paint: "Краска",
+                tile: "Плитка",
+                woodPanel: "Деревянные панели"
+            };
+            
+            // Расчет стоимости
+            let totalCost = area * baseCost;
+            totalCost *= floorMultiplier[floors] || 1;
+            totalCost *= roofCosts[roofType] || 1;
+            totalCost *= wallCosts[wallMaterial] || 1;
+            totalCost *= foundationCosts[foundationType] || 1;
+            totalCost *= finishingCosts[finishingMaterial] || 1;
+            
+            // Округление
+            totalCost = Math.round(totalCost / 10000) * 10000;
+            
+            // Отображение результатов
+            document.getElementById('resultArea').textContent = area + ' кв.м';
+            document.getElementById('resultFloors').textContent = floors;
+            document.getElementById('resultRoof').textContent = roofNames[roofType];
+            document.getElementById('resultWalls').textContent = wallNames[wallMaterial];
+            document.getElementById('resultFoundation').textContent = foundationNames[foundationType];
+            document.getElementById('resultFinishing').textContent = finishingNames[finishingMaterial];
+            document.getElementById('resultTotal').textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+            
+            // Показываем результаты
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('contactForm').style.display = 'block';
+            
+            // Прокрутка к результатам
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+            
+            return false;
+        }
+        
+        // Функция отправки контактных данных
+        function submitContact() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            
+            if (!fullName || !email) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Получаем результаты расчета
+            const area = document.getElementById('resultArea').textContent;
+            const floors = document.getElementById('resultFloors').textContent;
+            const roof = document.getElementById('resultRoof').textContent;
+            const walls = document.getElementById('resultWalls').textContent;
+            const foundation = document.getElementById('resultFoundation').textContent;
+            const finishing = document.getElementById('resultFinishing').textContent;
+            const total = document.getElementById('resultTotal').textContent;
+            
+            // Создаем объект расчета
+            const calculation = {
+                id: Date.now(),
+                fullName,
+                email,
+                date: new Date().toLocaleString(),
+                parameters: { area, floors, roof, walls, foundation, finishing },
+                total
+            };
+            
+            // Сохраняем в localStorage
+            let savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            savedCalculations.push(calculation);
+            localStorage.setItem('savedCalculations', JSON.stringify(savedCalculations));
+            
+            // Обновляем список сохраненных расчетов
+            updateSavedCalculations();
+            
+            alert('Расчет успешно сохранен! Мы свяжемся с вами в ближайшее время.');
+            
+            // Очищаем форму
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('contactForm').style.display = 'none';
+        }
+        
+        // Функция обновления списка сохраненных расчетов
+        function updateSavedCalculations() {
+            const savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            const listElement = document.getElementById('savedCalculations');
+            
+            listElement.innerHTML = '';
+            
+            if (savedCalculations.length === 0) {
+                listElement.innerHTML = '<li class="maric-saved-item">Нет сохраненных расчетов</li>';
+                return;
+            }
+            
+            savedCalculations.forEach(calc => {
+                const li = document.createElement('li');
+                li.className = 'maric-saved-item';
+                li.innerHTML = `
+                    <div class="maric-saved-header">
+                        <h4 class="maric-saved-name">${calc.fullName}</h4>
+                        <span class="maric-saved-date">${calc.date}</span>
+                    </div>
+                    <div class="maric-saved-details">
+                        ${calc.parameters.area}, ${calc.parameters.floors} этажа, ${calc.parameters.roof}<br>
+                        ${calc.parameters.walls}, ${calc.parameters.foundation}, ${calc.parameters.finishing}
+                    </div>
+                    <div class="maric-saved-total">${calc.total}</div>
+                    <button class="maric-saved-delete" onclick="deleteCalculation(${calc.id})">Удалить</button>
+                `;
+                listElement.appendChild(li);
+            });
+        }
+        
+        // Функция удаления расчета
+        function deleteCalculation(id) {
+            let savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            savedCalculations = savedCalculations.filter(calc => calc.id !== id);
+            localStorage.setItem('savedCalculations', JSON.stringify(savedCalculations));
+            updateSavedCalculations();
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSavedCalculations();
+        });
+    </script>
+</body>
+</html>

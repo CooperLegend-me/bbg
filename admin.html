@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админка - Сохраненные расчеты</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <header>
+        <h1>Сохраненные расчеты</h1>
+    </header>
+    <div class="container">
+        <h2>Расчеты</h2>
+        <ul id="savedCalculationsAdmin"></ul>
+    </div>
+
+    <script>
+        // Получаем данные из localStorage и отображаем их
+        const calculations = JSON.parse(localStorage.getItem('calculations')) || [];
+        const savedCalculationsAdminList = document.getElementById('savedCalculationsAdmin');
+
+        calculations.forEach((calc, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerText = `Расчет ${index + 1}: Площадь = ${calc.area} м², Этажи = ${calc.floors}, Стоимость = ${calc.totalCost.toFixed(2)} рублей`;
+            savedCalculationsAdminList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
