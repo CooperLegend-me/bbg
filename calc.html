@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор строительства - Мари-Арт</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles1.css">
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="imagesc.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Ваш хедер (оставлен без изменений) -->
+    <header class="header-12">
+        <div class="container-12">
+            <div class="logo-12">
+                <img src="images/logo1.svg" alt="Логотип компании" class="logo-image-14">
+                <span class="company-name">Строительная компания</span>
+                <span class="brand-name">Мари-Арт</span>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+            <ul class="nav-list-12" id="navList">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">Информация</a></li>
+                <li><a href="otsivi.html">Отзывы</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="calc.html">Калькулятор</a></li> 
+            </ul> 
+        </div>
+    </header>
+
+    <!-- Фоновое изображение -->
+    <div class="maric-bg-wrapper">
+        <!-- ВСТАВЬТЕ СВОЕ ИЗОБРАЖЕНИЕ ЗДЕСЬ -->
+        <div class="maric-bg-image"></div>
+        <div class="maric-bg-overlay"></div>
+    </div>
+
+    <!-- Основное содержимое калькулятора -->
+    <div class="maric-calc-wrapper">
+        <div class="maric-calc-container">
+            <div class="maric-calc-header">
+                <h1 class="maric-calc-title">Калькулятор строительства дома</h1>
+                <p class="maric-calc-subtitle">Рассчитайте точную стоимость вашего будущего дома</p>
+            </div>
+            
+            <div class="maric-calc-body">
+                <form id="constructionForm" class="maric-calc-form" onsubmit="return calculateCost(event)">
+                    <div class="maric-form-group full-width">
+                        <label for="area" class="maric-form-label">Площадь дома (кв. м)</label>
+                        <input type="number" id="area" class="maric-form-input" required min="20" max="1000" placeholder="Например: 120">
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="floors" class="maric-form-label">Количество этажей</label>
+                        <input type="number" id="floors" class="maric-form-input" required min="1" max="5" placeholder="От 1 до 5">
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="roofType" class="maric-form-label">Тип крыши</label>
+                        <select id="roofType" class="maric-form-select">
+                            <option value="flat">Плоская</option>
+                            <option value="gable">Скатная</option>
+                            <option value="hip">Шатровая</option>
+                            <option value="mansard">Мансардная</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="wallMaterial" class="maric-form-label">Материал стен</label>
+                        <select id="wallMaterial" class="maric-form-select">
+                            <option value="brick">Кирпич</option>
+                            <option value="wood">Дерево</option>
+                            <option value="concrete">Бетон</option>
+                            <option value="foam">Пеноблоки</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="foundationType" class="maric-form-label">Тип фундамента</label>
+                        <select id="foundationType" class="maric-form-select">
+                            <option value="strip">Ленточный</option>
+                            <option value="pile">Свайный</option>
+                            <option value="slab">Плита</option>
+                            <option value="column">Столбчатый</option>
+                        </select>
+                    </div>
+                    
+                    <div class="maric-form-group">
+                        <label for="finishingMaterial" class="maric-form-label">Материал отделки</label>
+                        <select id="finishingMaterial" class="maric-form-select">
+                            <option value="plaster">Штукатурка</option>
+                            <option value="paint">Краска</option>
+                            <option value="tile">Плитка</option>
+                            <option value="woodPanel">Деревянные панели</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="maric-form-button">Рассчитать стоимость</button>
+                </form>
+
+                <div class="maric-results" id="result">
+                    <h3 class="maric-results-title">Результаты расчета</h3>
+                    <div class="maric-results-grid">
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Площадь дома:</span>
+                            <span class="maric-result-value" id="resultArea">0 кв.м</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Этажность:</span>
+                            <span class="maric-result-value" id="resultFloors">0</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Тип крыши:</span>
+                            <span class="maric-result-value" id="resultRoof">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Материал стен:</span>
+                            <span class="maric-result-value" id="resultWalls">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Фундамент:</span>
+                            <span class="maric-result-value" id="resultFoundation">-</span>
+                        </div>
+                        <div class="maric-result-item">
+                            <span class="maric-result-label">Отделка:</span>
+                            <span class="maric-result-value" id="resultFinishing">-</span>
+                        </div>
+                        <div class="maric-result-total">
+                            <span class="maric-result-label">Итоговая стоимость:</span>
+                            <span class="maric-result-value" id="resultTotal">0 руб.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="maric-contact-form" id="contactForm">
+                    <h3 class="maric-results-title">Сохранить расчет</h3>
+                    <div class="maric-calc-form">
+                        <div class="maric-form-group full-width">
+                            <label for="fullName" class="maric-form-label">ФИО</label>
+                            <input type="text" id="fullName" class="maric-form-input" required>
+                        </div>
+                        <div class="maric-form-group full-width">
+                            <label for="email" class="maric-form-label">Email</label>
+                            <input type="email" id="email" class="maric-form-input" required>
+                        </div>
+                        <button type="button" id="submitContact" class="maric-form-button" onclick="submitContact()">Сохранить расчет</button>
+                    </div>
+                </div>
+
+                <h2 class="maric-saved-title">Сохраненные расчеты</h2>
+                <ul class="maric-saved-list" id="savedCalculations"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция расчета стоимости
+        function calculateCost(event) {
+            event.preventDefault();
+            
+            // Получаем значения из формы
+            const area = parseInt(document.getElementById('area').value);
+            const floors = parseInt(document.getElementById('floors').value);
+            const roofType = document.getElementById('roofType').value;
+            const wallMaterial = document.getElementById('wallMaterial').value;
+            const foundationType = document.getElementById('foundationType').value;
+            const finishingMaterial = document.getElementById('finishingMaterial').value;
+            
+            // Коэффициенты стоимости
+            const baseCost = 30000; // Базовая стоимость за кв.м
+            const floorMultiplier = [0, 1, 1.8, 2.5, 3.1, 3.6]; // Множитель за этажность
+            
+            const roofCosts = {
+                flat: 1.0,
+                gable: 1.2,
+                hip: 1.4,
+                mansard: 1.8
+            };
+            
+            const wallCosts = {
+                brick: 1.5,
+                wood: 1.2,
+                concrete: 1.3,
+                foam: 1.0
+            };
+            
+            const foundationCosts = {
+                strip: 1.2,
+                pile: 1.0,
+                slab: 1.5,
+                column: 0.8
+            };
+            
+            const finishingCosts = {
+                plaster: 1.0,
+                paint: 0.8,
+                tile: 1.5,
+                woodPanel: 1.8
+            };
+            
+            // Перевод значений в читаемый вид
+            const roofNames = {
+                flat: "Плоская",
+                gable: "Скатная",
+                hip: "Шатровая",
+                mansard: "Мансардная"
+            };
+            
+            const wallNames = {
+                brick: "Кирпич",
+                wood: "Дерево",
+                concrete: "Бетон",
+                foam: "Пеноблоки"
+            };
+            
+            const foundationNames = {
+                strip: "Ленточный",
+                pile: "Свайный",
+                slab: "Плита",
+                column: "Столбчатый"
+            };
+            
+            const finishingNames = {
+                plaster: "Штукатурка",
+                paint: "Краска",
+                tile: "Плитка",
+                woodPanel: "Деревянные панели"
+            };
+            
+            // Расчет стоимости
+            let totalCost = area * baseCost;
+            totalCost *= floorMultiplier[floors] || 1;
+            totalCost *= roofCosts[roofType] || 1;
+            totalCost *= wallCosts[wallMaterial] || 1;
+            totalCost *= foundationCosts[foundationType] || 1;
+            totalCost *= finishingCosts[finishingMaterial] || 1;
+            
+            // Округление
+            totalCost = Math.round(totalCost / 10000) * 10000;
+            
+            // Отображение результатов
+            document.getElementById('resultArea').textContent = area + ' кв.м';
+            document.getElementById('resultFloors').textContent = floors;
+            document.getElementById('resultRoof').textContent = roofNames[roofType];
+            document.getElementById('resultWalls').textContent = wallNames[wallMaterial];
+            document.getElementById('resultFoundation').textContent = foundationNames[foundationType];
+            document.getElementById('resultFinishing').textContent = finishingNames[finishingMaterial];
+            document.getElementById('resultTotal').textContent = totalCost.toLocaleString('ru-RU') + ' руб.';
+            
+            // Показываем результаты
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('contactForm').style.display = 'block';
+            
+            // Прокрутка к результатам
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+            
+            return false;
+        }
+        
+        // Функция отправки контактных данных
+        function submitContact() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            
+            if (!fullName || !email) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Получаем результаты расчета
+            const area = document.getElementById('resultArea').textContent;
+            const floors = document.getElementById('resultFloors').textContent;
+            const roof = document.getElementById('resultRoof').textContent;
+            const walls = document.getElementById('resultWalls').textContent;
+            const foundation = document.getElementById('resultFoundation').textContent;
+            const finishing = document.getElementById('resultFinishing').textContent;
+            const total = document.getElementById('resultTotal').textContent;
+            
+            // Создаем объект расчета
+            const calculation = {
+                id: Date.now(),
+                fullName,
+                email,
+                date: new Date().toLocaleString(),
+                parameters: { area, floors, roof, walls, foundation, finishing },
+                total
+            };
+            
+            // Сохраняем в localStorage
+            let savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            savedCalculations.push(calculation);
+            localStorage.setItem('savedCalculations', JSON.stringify(savedCalculations));
+            
+            // Обновляем список сохраненных расчетов
+            updateSavedCalculations();
+            
+            alert('Расчет успешно сохранен! Мы свяжемся с вами в ближайшее время.');
+            
+            // Очищаем форму
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('contactForm').style.display = 'none';
+        }
+        
+        // Функция обновления списка сохраненных расчетов
+        function updateSavedCalculations() {
+            const savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            const listElement = document.getElementById('savedCalculations');
+            
+            listElement.innerHTML = '';
+            
+            if (savedCalculations.length === 0) {
+                listElement.innerHTML = '<li class="maric-saved-item">Нет сохраненных расчетов</li>';
+                return;
+            }
+            
+            savedCalculations.forEach(calc => {
+                const li = document.createElement('li');
+                li.className = 'maric-saved-item';
+                li.innerHTML = `
+                    <div class="maric-saved-header">
+                        <h4 class="maric-saved-name">${calc.fullName}</h4>
+                        <span class="maric-saved-date">${calc.date}</span>
+                    </div>
+                    <div class="maric-saved-details">
+                        ${calc.parameters.area}, ${calc.parameters.floors} этажа, ${calc.parameters.roof}<br>
+                        ${calc.parameters.walls}, ${calc.parameters.foundation}, ${calc.parameters.finishing}
+                    </div>
+                    <div class="maric-saved-total">${calc.total}</div>
+                    <button class="maric-saved-delete" onclick="deleteCalculation(${calc.id})">Удалить</button>
+                `;
+                listElement.appendChild(li);
+            });
+        }
+        
+        // Функция удаления расчета
+        function deleteCalculation(id) {
+            let savedCalculations = JSON.parse(localStorage.getItem('savedCalculations')) || [];
+            savedCalculations = savedCalculations.filter(calc => calc.id !== id);
+            localStorage.setItem('savedCalculations', JSON.stringify(savedCalculations));
+            updateSavedCalculations();
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSavedCalculations();
+        });
+    </script>
+    <script src="burger-menu.js"></script>
+     <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Главная</a>
+                <a href="about.html">Информация</a>
+                <a href="otsivi.html">Отзывы</a>
+                <a href="faq.html">FAQ</a>
+                <a href="calc.html">Калькулятор</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2023 Строительная Компания "Мари-Арт". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+           
+    </script>
+    <script src="jsdop/jquery-3.6.0.min.js"></script>
+<script>
+    // Обработчик клика по логотипу
+    $(document).ready(function() {
+        $('.logo-12').click(function() {
+            window.location.href = 'index.html';
+        });
+    });
+</script>
+</body>
+</html>

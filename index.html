@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Строительная Компания</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="imagesc.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<header class="header-12">
+    <div class="container-12">
+        <div class="logo-12" onclick="window.location.href='index.html'">
+            <img src="images/logo1.svg" alt="Логотип компании" class="logo-image-14">
+            <span class="company-name">Строительная компания</span>
+            <span class="brand-name">Мари-Арт</span>
+        </div>
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        <ul class="nav-list-12" id="navList">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="about.html">Информация</a></li>
+            <li><a href="otsivi.html">Отзывы</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="calc.html">Калькулятор</a></li>
+            <li><button class="auth-btn10" id="authBtn10">Личный кабинет</button></li>
+        </ul>
+    </div>
+</header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Качественное строительство и ремонт</h2>
+            <p>Мы предлагаем широкий спектр услуг по строительству и ремонту домов, бань и дач.</p>
+            <a href="calc.html" class="btn">Рассчитать стоимость дома</a>
+        </div>
+    </section>
+    
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Наши Услуги</h2>
+            <div class="slider">
+                <div class="service">
+                    <div class="image-container">
+                        <img src="images/XXL_height.webp" alt="Строительство домов">
+                        <div>
+                            <p>Мы строим дома на основе индивидуальных проектов, учитывая все пожелания.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="image-container">
+                        <img src="images/repair.webp" alt="Ремонт квартир">
+                        <div>
+                            <p>Качественный ремонт любых помещений, от косметического до капитального. Мы поможем создать уютное и стильное пространство для жизни.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="image-container">
+                        <img src="images/dacha3.webp" alt="Строительство бань">
+                        <div>
+                            <p>Построим баню с учетом всех ваших пожеланий. Мы используем экологически чистые материалы.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="image-container">
+                        <img src="images/dach.webp" alt="Дачное строительство">
+                        <div>
+                            <p>Строим дачи под ключ, включая все необходимые коммуникации. Обеспечим комфорт и уют для вашего отдыха.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Главная</a>
+                <a href="about.html">Информация</a>
+                <a href="otsivi.html">Отзывы</a>
+                <a href="faq.html">FAQ</a>
+                <a href="calc.html">Калькулятор</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2023 Строительная Компания "Мари-Арт". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="jsdop/jquery-3.6.0.min.js"></script>
+    <script src="jsdop/slick.min.js"></script>        
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+                pauseOnHover: true,
+                pauseOnFocus: true,
+                adaptiveHeight: false,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            dots: false
+                        }
+                    }
+                ]
+            });
+            // Обработчик клика по логотипу
+            $('.logo-12').click(function() {
+                window.location.href = 'index.html';
+            });
+        });      
+    </script>
+    <script src="burger-menu.js"></script>
+    <script src="auth23.js"></script>
+</body>
+</html>

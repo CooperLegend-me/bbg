@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги - Строительная Компания</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="imagesc.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ <header class="header-12">
+        <div class="container-12">
+            <div class="logo-12">
+                <img src="images/logo1.svg" alt="Логотип компании" class="logo-image-14">
+                <span class="company-name">Строительная компания</span>
+                <span class="brand-name">Мари-Арт</span>
+            </div>
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        <ul class="nav-list-12" id="navList">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="about.html">Информация</a></li>
+            <li><a href="otsivi.html">Отзывы</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="calc.html">Калькулятор</a></li> 
+        </ul>
+        </div>
+    </header>
+
+    <section class="projects">
+        <div class="container2">
+            <h2 class="section-title">Наши работы</h2>
+            <div class="project-slider">
+                <div class="project">
+                    <img src="images/ready.jpg" alt="Проект 1">
+                    <h3 class="project__title">Строительство загородного дома</h3>
+                </div>
+                <div class="project">
+                    <img src="images/before.webp" alt="Проект 2">
+                    <h3 class="project__title">Ремонт квартиры</h3>
+                </div>
+                <div class="project">
+                    <img src="images/banya2.webp" alt="Проект 3">
+                    <h3 class="project__title">Строительство бани</h3>
+                </div>
+                <div class="project">
+                    <img src="images/dch.webp" alt="Проект 4">
+                    <h3 class="project__title">Строительство дачи</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Отзывы клиентов</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <div class="image-container">
+                        <img src="images/user.png" alt="user">
+                        <p class="testimonial-text">"Отличная работа! Мы очень довольны качеством строительства нашего дома!"</p>
+                        <p class="testimonial-author">- Иван Петров</p>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="image-container">
+                        <img src="images/user.png" alt="user">
+                        <p class="testimonial-text">"Ремонт прошел быстро и качественно.
+                             Рекомендую!"</p>
+                        <p class="testimonial-author">- Мария Сидорова</p>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="image-container">
+                        <img src="images/user.png" alt="user">
+                        <p class="testimonial-text">"Строительство бани было выполнено на высшем уровне!"</p>
+                        <p class="testimonial-author">- Алексей Смирнов</p>
+                    </div>
+                </div>
+                <div class="testimonial"> 
+                    <div class="image-container">
+                        <img src="images/user.png" alt="user">      
+                        <p class="testimonial-text">"Отличное качество и профессиональный подход!"</p>
+                        <p class="testimonial-author">- Ольга Кузнецова</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Главная</a>
+                <a href="about.html">Информация</a>
+                <a href="otsivi.html">Отзывы</a>
+                <a href="faq.html">FAQ</a>
+                <a href="calc.html">Калькулятор</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2023 Строительная Компания "Мари-Арт". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="jsdop/jquery-3.6.0.min.js"></script>
+    <script src="jsdop/slick.min.js"></script>
+    <script>
+$(document).ready(function(){
+    $('.testimonial-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+        arrows: true,
+        prevArrow: '<button type="button" class="slick-prev">←</button>',
+        nextArrow: '<button type="button" class="slick-next">→</button>'
+    });
+});
+    </script>
+    <script src="burger-menu.js"></script>
+    <script>
+            // Обработчик клика по логотипу
+            $('.logo-12').click(function() {
+                window.location.href = 'index.html';
+            });      
+    </script>
+</body>
+</html>
